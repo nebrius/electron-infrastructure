@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 export enum MessageType {
-  WindowReady = 'WindowReady',
+  WindowReady = 'WindowReady'
 }
 
 export interface IMessage {

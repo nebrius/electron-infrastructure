@@ -37,7 +37,7 @@ export type MessageListener = (data: Record<string, any>) => void;
 
 let app: express.Express;
 const listeners: Record<string, MessageListener[]> = {};
-const windows: Record<string, Map<IWebSocket, boolean>> = {};
+const sockets: Record<string, Map<IWebSocket, boolean>> = {};
 
 export async function createInfrastructureServer(port: number): Promise<void> {
   // TODO: switch to HTTPS (HTTP/2?)
@@ -50,10 +50,14 @@ export async function createInfrastructureServer(port: number): Promise<void> {
       const parsedMessage: IMessage = JSON.parse(msg.toString());
       if (parsedMessage.messageType === MessageType.WindowReady) {
         const windowType = (parsedMessage as IWindowReadyMessage).windowType;
-        if (!windows.hasOwnProperty(windowType)) {
-          windows[windowType] = new Map<IWebSocket, boolean>();
+        if (!sockets.hasOwnProperty(windowType)) {
+          sockets[windowType] = new Map<IWebSocket, boolean>();
         }
-        windows[windowType].set(wsClient, true);
+        sockets[windowType].set(wsClient, true);
+      } else if (listeners.hasOwnProperty(parsedMessage.messageType)) {
+        for (const listener of listeners[parsedMessage.messageType]) {
+          listener(parsedMessage);
+        }
       }
     });
   });
@@ -67,7 +71,11 @@ export function addStaticAssetRoute(route: string, rootDirectory: string): void 
   app.use(route, express.static(rootDirectory));
 }
 
-export function registerMessageListener(messageType: string, listener: MessageListener): void {
+export function addRoute(route: string, handler: express.RequestHandler): void {
+  app.get(route, handler);
+}
+
+export function addMessageListener(messageType: string, listener: MessageListener): void {
   if (!listeners.hasOwnProperty(messageType)) {
     listeners[messageType] = [];
   }
@@ -75,10 +83,10 @@ export function registerMessageListener(messageType: string, listener: MessageLi
 }
 
 export async function sendMessageToWindows(windowType: string, message: Record<string, any>): Promise<void> {
-  if (!windows.hasOwnProperty(windowType)) {
+  if (!sockets.hasOwnProperty(windowType)) {
     throw new Error(`Window type ${windowType} is unknown`);
   }
-  for (const [ connection ] of windows[windowType]) {
+  for (const [ connection ] of sockets[windowType]) {
     connection.send(JSON.stringify(message));
   }
 }
