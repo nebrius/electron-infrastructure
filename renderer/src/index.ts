@@ -32,7 +32,7 @@ let connection: WebSocket | undefined;
 const messageQueue: IMessage[] = [];
 const listenerQueue: MessageListener[] = [];
 
-export async function init(port: number): Promise<void> {
+export async function connectToInfrastructureServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     connection = new WebSocket(`ws://localhost:${port}/ws`);
     connection.addEventListener('open', () => {

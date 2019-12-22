@@ -39,7 +39,7 @@ let app: express.Express;
 const listeners: Record<string, MessageListener[]> = {};
 const windows: Record<string, Map<IWebSocket, boolean>> = {};
 
-export async function init(port: number): Promise<void> {
+export async function createInfrastructureServer(port: number): Promise<void> {
   // TODO: switch to HTTPS (HTTP/2?)
   app = express();
   const httpServer = createServer(app);

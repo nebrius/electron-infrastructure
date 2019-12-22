@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "HTTP main infrastructure for Electron",
   "main": "dist/index.js",
+  "types": "declarations/index.d.ts",
   "dependencies": {
     "express": "^4.17.1",
     "ws": "^7.2.1"
