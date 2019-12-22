@@ -1,0 +1,37 @@
+{
+  "name": "@nebrius/electron-infrastructure-server",
+  "version": "1.0.0",
+  "description": "HTTP server infrastructure for electron ",
+  "main": "dist/index.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "ws": "^7.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.2",
+    "@types/node": "^12.12.21",
+    "@types/ws": "^6.0.4",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4",
+    "typescript-tslint-plugin": "^0.5.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prebuild": "tslint 'src/**/*.ts'",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nebrius/electron-server.git"
+  },
+  "keywords": [
+    "Electron",
+    "server"
+  ],
+  "author": "Bryan Hughes <bryan@nebri.us>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nebrius/electron-server/issues"
+  },
+  "homepage": "https://github.com/nebrius/electron-server#readme"
+}
