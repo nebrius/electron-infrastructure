@@ -1,7 +1,7 @@
 {
-  "name": "@nebrius/electron-infrastructure-client",
+  "name": "@nebrius/electron-infrastructure-renderer",
   "version": "1.0.0",
-  "description": "HTTP client infrastructure for electron",
+  "description": "HTTP renderer infrastructure for Electron",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

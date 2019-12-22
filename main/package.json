@@ -1,7 +1,7 @@
 {
-  "name": "@nebrius/electron-infrastructure-server",
+  "name": "@nebrius/electron-infrastructure-main",
   "version": "1.0.0",
-  "description": "HTTP server infrastructure for electron ",
+  "description": "HTTP main infrastructure for Electron",
   "main": "dist/index.js",
   "dependencies": {
     "express": "^4.17.1",
