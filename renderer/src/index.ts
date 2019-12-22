@@ -32,6 +32,8 @@ let connection: WebSocket | undefined;
 const messageQueue: IMessage[] = [];
 const listenerQueue: MessageListener[] = [];
 
+export { IMessage } from './common/common.js';
+
 export async function connectToInfrastructureServer(port: number): Promise<void> {
   return new Promise((resolve, reject) => {
     connection = new WebSocket(`ws://localhost:${port}/ws`);
